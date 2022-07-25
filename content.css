@@ -1,12 +1,12 @@
-.done {
+.status-done {
   background-color: #5cb85c;
   border-color: #5cb85c;
 }
-.solving {
+.status-solving {
   background-color: #f0ad4e;
   border-color: #f0ad4e;
 }
-.to-solve {
+.status-to-solve {
   background-color: #d9534f;
   border-color: #d9534f;
 }

@@ -1,10 +1,15 @@
+function getCls(stat) {
+  return `status-${stat.toLowerCase().replace(' ', '-')}`;
+}
 async function dropdownHTML(i,stat){
   const dropItems = Object.keys(STATUS).map(
-    key => `<li><a data-id="${i}" href="#!">${STATUS[key]}</a></li>`
+    key => `<li><a data-id="${i}" href="#!">
+      ${STATUS[key]}
+    </a></li>`
   );
   return `<td>
   <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <button class="btn dropdown-toggle ${getCls(stat)}" type="button" id="dropdownMenu${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
   ${stat}
     <span class="caret"></span>
   </button>
@@ -81,7 +86,13 @@ async function getExistingPapers(id){
 function updateUIFromDropdownOpt(target) {
   const id = target.getAttribute("data-id");
   const dropButt = document.getElementById(`dropdownMenu${id}`);
-  dropButt.innerHTML = target.innerText + ` <span class="caret"></span>`;
+  if(target.innerText == "Clear"){
+    dropButt.innerHTML = "Status" + ` <span class="caret"></span>`;
+  }else{
+    dropButt.innerHTML = target.innerText + ` <span class="caret"></span>`;
+  }
+  const idx = dropButt.className.search('status');
+  dropButt.className = dropButt.className.slice(0,idx) + getCls(target.innerText);
 }
 function isDropdownElt(target){
   return target.tagName === "A" && target.hasAttribute("data-id");
